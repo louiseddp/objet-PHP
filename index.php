@@ -6,7 +6,7 @@ class Encounter
     public const RESULT_DRAW = 0;
     public const RESULT_POSSIBILITIES = [self::RESULT_WINNER, self::RESULT_LOSER, self::RESULT_DRAW];
     public static function probabilityAgainst(Player $playerOne, Player $playerTwo) : float {
-        return 1/(1+(10 ** (($playerTwo->level - $playerOne->level)/400)));
+        return 1/(1+(10 ** (($playerTwo->__get("level") - $playerOne->__get("level"))/400)));
     }
 
     public static function setNewLevel(Player $playerOne, Player $playerTwo, int $playerOneResult): void {
@@ -14,20 +14,26 @@ class Encounter
             trigger_error(sprintf('Invalid result. Expected %s',implode(' or ', self::RESULT_POSSIBILITIES)));
         }
     
-        $playerOne->level += (int) (32 * ($playerOneResult - self::probabilityAgainst($playerOne, $playerTwo)));
+        $playerOne->__set("level", 
+            $playerOne->__get("level") + (int) (32 * ($playerOneResult - self::probabilityAgainst($playerOne, $playerTwo))));
     }
 }
 
 class Player 
 {
-    public int $level;
+    public function __construct (private int $level) {
+    }
+    public function __get (string $name) {
+        return $this->{$name};
+    }
+    public function __set (string $name, $value) : void {
+        $this->{$name} = $value;
+    }
+    
 }
 
-$greg= new Player;
-$jade= new Player;
-
-$greg->level = 400;
-$jade->level = 800;
+$greg= new Player(400);
+$jade= new Player(800);
 
 echo sprintf(
     'Greg à %.2f%% chance de gagner face a Jade',
