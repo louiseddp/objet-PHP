@@ -6,12 +6,11 @@ namespace App\MatchMaker\Players;
 
 use \App\MatchMaker\Players\Player;
 
-final class QueuingPlayer extends Player 
+class QueuingPlayer
 
 {
-    public function __construct(Player $player, protected int $range = 1)
+    public function __construct(public Player $player, protected int $range = 1)
     {
-        parent::__construct($player->getName(), $player->getRatio());
     }
 
     public function getRange(): int
@@ -22,6 +21,21 @@ final class QueuingPlayer extends Player
     public function upgradeRange(): void
     {
         $this->range = min($this->range + 1, 40);
+    }
+
+    public function getPlayer(): getPlayer
+    {
+        return $this->player;
+    }
+
+    public function updateRatioAgainst(Player $player, int $result): void
+    {
+        $this->player->updateRatioAgainst($player, $result);
+    }
+
+    public function getRatio(): float
+    {
+        return $this->player->getRatio();
     }
     
 }
