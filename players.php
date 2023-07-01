@@ -2,9 +2,13 @@
 
 declare(strict_types=1);
 
+namespace App\MatchMaker;
+use \App\MatchMaker\Players\Player;
+use \App\MatchMaker\Players\QueuingPlayer;
+use \App\MatchMaker\Players\BlitzPlayer;
+
 class Lobby
 {
-    /** @var array<QueuingPlayer> */
     public array $queuingPlayers = [];
 
     public function findOponents(QueuingPlayer $player): array
@@ -32,6 +36,8 @@ class Lobby
         }
     }
 }
+
+namespace App\MatchMaker\Players;
 
 abstract class AbstractPlayer
 {
@@ -123,7 +129,7 @@ final class QueuingPlayer extends Player
 $greg = new BlitzPlayer('greg');
 $jade = new BlitzPlayer('jade');
 
-$lobby = new Lobby();
+$lobby = new \App\MatchMaker\Lobby();
 $lobby->addPlayers($greg, $jade);
 
 var_dump($lobby->findOponents($lobby->queuingPlayers[0]));
