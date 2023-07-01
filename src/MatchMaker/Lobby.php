@@ -7,7 +7,12 @@ namespace App\MatchMaker;
 use \App\MatchMaker\Players\Player;
 use \App\MatchMaker\Players\QueuingPlayer;
 
-class Lobby
+interface CanAddPlayers 
+{
+    public function addPlayer(Player $player): void;
+}
+
+class Lobby implements CanAddPlayers
 {
     public array $queuingPlayers = [];
 

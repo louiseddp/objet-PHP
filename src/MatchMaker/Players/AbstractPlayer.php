@@ -4,7 +4,22 @@ declare(strict_types=1);
 
 namespace App\MatchMaker\Players;
 
-abstract class AbstractPlayer
+interface HasName 
+{
+    public function getName(): string;
+}
+
+interface HasRatio 
+{
+    public function getRatio(): float;
+}
+
+interface HasRatioAndName extends HasName, HasRatio 
+{
+
+}
+
+abstract class AbstractPlayer implements HasRatioAndName
 {
     const RATIO_INIT = 400.0;
 
@@ -17,7 +32,7 @@ abstract class AbstractPlayer
 
     abstract protected function updateRatioAgainst (self $player, int $result): void;
 
-    abstract public function getname(): string;
+    abstract public function getName(): string;
 
     abstract public function getRatio(): float;
 
