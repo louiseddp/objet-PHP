@@ -20,5 +20,6 @@ $lobby = new Lobby();
 $lobby->addPlayers($greg, $jade);
 
 var_dump($lobby->findOponents($lobby->queuingPlayers[0]));
+var_dump($greg->getRatio());
 
 exit(0);

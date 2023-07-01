@@ -6,7 +6,7 @@ namespace App\MatchMaker\Players;
 
 abstract class AbstractPlayer
 {
-    public float $RATIO_INIT = 400.0;
+    const RATIO_INIT = 400.0;
 
     public function __construct (protected string $name, protected float $ratio = self::RATIO_INIT)
     {

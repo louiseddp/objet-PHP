@@ -9,12 +9,12 @@ use \App\MatchMaker\Players\AbstractPlayer;
 
 final class BlitzPlayer extends Player 
 {
-    public float $RATIO_INIT = 1200.0;
+    const RATIO_INIT = 1200.0;
 
     public function __construct (protected string $name="anonymous", protected float $ratio = NAN)
     {
-        if ($ratio === NAN) {
-            $ratio = static::RATIO_INIT;
+        if ($this->ratio = NAN) {
+            $this->ratio = static::RATIO_INIT;
         }
 
     }
